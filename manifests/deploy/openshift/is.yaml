@@ -1,0 +1,21 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: receivedata
+    app.kubernetes.io/component: receivedata
+    app.kubernetes.io/instance: receivedata
+    app.kubernetes.io/part-of: dhbw-co2ampel
+  name: receivedata
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - from:
+      kind: DockerImage
+      name: replace/me/receivedata:latest
+    importPolicy:
+      scheduled: true
+    name: latest
+    referencePolicy:
+      type: Source

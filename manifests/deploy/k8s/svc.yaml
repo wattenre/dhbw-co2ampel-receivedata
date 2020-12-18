@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: receivedata
+    app.kubernetes.io/component: receivedata
+    app.kubernetes.io/instance: receivedata
+    app.kubernetes.io/part-of: dhbw-co2ampel
+  name: receivedata
+spec:
+  ports:
+  - name: 4000-tcp
+    port: 4000
+    protocol: TCP
+    targetPort: 4000
+  selector:
+    app: receivedata
+    deploymentconfig: receivedata
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

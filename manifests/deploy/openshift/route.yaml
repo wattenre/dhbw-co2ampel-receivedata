@@ -1,0 +1,13 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: receivedata
+spec:
+  path: /
+  to:
+    kind: Service
+    name: receivedata
+    weight: 100
+  port:
+    targetPort: 4000-tcp
+  wildcardPolicy: None

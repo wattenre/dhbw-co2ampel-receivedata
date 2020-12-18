@@ -1,0 +1,9 @@
+bases:
+- build/openshift
+- deploy/k8s
+- deploy/openshift
+
+images:
+- name: replace/me/receivedata
+  newName: image-registry.openshift-image-registry.svc:5000/dhbw-co2ampel/receivedata
+  newTag: main

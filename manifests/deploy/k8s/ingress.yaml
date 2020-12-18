@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: receivedata
+spec:
+  rules:
+    - host: receivedata-dhbw-co2ampel.2886795283-80-kota02.environments.katacoda.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              serviceName: receivedata
+              servicePort: 4000

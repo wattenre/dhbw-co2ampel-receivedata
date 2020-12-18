@@ -1,0 +1,51 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: receivedata
+    app.kubernetes.io/component: receivedata
+    app.kubernetes.io/instance: receivedata
+    app.kubernetes.io/part-of: dhbw-co2ampel
+  name: receivedata
+spec:
+  source:
+    contextDir: /
+    git:
+      uri: https://github.com/wattenre/dhbw-co2ampel-receivedata
+      ref: main
+    type: Git
+  strategy:
+    type: Docker
+    dockerStrategy: {}
+    # type: Source
+    # sourceStrategy:
+    #   from:
+    #     kind: ImageStreamTag
+    #     name: nodejs:12
+    #     namespace: openshift
+  output:
+    to:
+    #   kind: DockerImage
+    #   name: replace/me/receivedata:latest
+    # pushSecret:
+    #   name: external-registry-dockercfg
+      kind: ImageStreamTag
+      name: receivedata:latest
+  failedBuildsHistoryLimit: 5
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - type: Generic
+    generic:
+      secretReference:
+        name: receivedata-generic-webhook-secret
+  - type: GitHub
+    github:
+      secretReference:
+        name: receivedata-github-webhook-secret  
+  # - type: ImageChange
+  #   imageChange:
+  #     lastTriggeredImageID: image-registry.openshift-image-registry.svc:5000/openshift/nodejs@sha256:87be8d1bf03ef6cf2d050ff86ea1798a6a40f0bf238d1d8b7eadb5f45530de36
+  - type: ConfigChange
